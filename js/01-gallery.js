@@ -17,8 +17,7 @@ galleryItems.forEach(item => {
     img.setAttribute('src', item.preview)
     img.setAttribute('data-source', item.original)
     img.setAttribute('alt', item.description)
-    img.setAttribute('width', "800")
-    img.setAttribute('height', "600")
+
 
     link.appendChild(img)
 
@@ -40,4 +39,4 @@ images.forEach(image => {
     })
 })
 
-console.log(galleryItems);
+// console.log(galleryItems);
