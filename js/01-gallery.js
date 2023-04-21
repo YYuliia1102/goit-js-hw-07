@@ -1,58 +1,43 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-// import * as basicLightbox from 'basiclightbox'
-
 const liArray = [];
 
+// Звернаємось до классу gallery
 const ul = document.querySelector('.gallery');
 galleryItems.forEach(item => {
     const li = document.createElement('li');
-    
-    li.innerHTML = (`
-    <a class="gallery__link" href="${item.original}">
-    <img
-    class="gallery__image"
-    src="${item.preview}"
-    data-source="${item.original}"
-    alt="${item.description}"
-    width = "800"
-    height = "600"
-    />
-    </a>
-    `)
+
+    const link = document.createElement('a')
+    link.className = "gallery__link";
+    link.setAttribute('href', item.original)
+
+    const img = document.createElement('img')
+    img.className = "gallery__image";
+    img.setAttribute('src', item.preview)
+    img.setAttribute('data-source', item.original)
+    img.setAttribute('alt', item.description)
+    img.setAttribute('width', "800")
+    img.setAttribute('height', "600")
+
+    link.appendChild(img)
+
+    li.appendChild(link)
+
     liArray.push(li);
 })
+
 ul.append(...liArray);
 
-// document.querySelector('a.gallery_image').onclick = () => {
+const images = document.querySelectorAll('img')
+images.forEach(image => {
+    image.addEventListener('click', (e) => {
+        e.preventDefault(); //відміняє стандартну дію браузера
+        const bigSrc = image.attributes['data-source'].value;
+        basicLightbox.create(`
+        <img width="1400" height="900" src="${bigSrc}">
+    `).show()
+    })
+})
 
-// 	basicLightbox.create(`
-// 		<img width="1400" height="900" src="${item.preview}">
-// 	`).show()
-
-// }
-
-
-// const images = document.querySelectorAll('img')
-// images.forEach(image => {
-//   image.addEventListener('click', e => {
-//     lightbox.classList.add('active')
-//     const img = document.createElement('img')
-//     img.src = image.src
-//     while (lightbox.firstChild) {
-//       lightbox.removeChild(lightbox.firstChild)
-//     }
-//     lightbox.appendChild(img)
-//   })
-// })
-
-// lightbox.addEventListener('click', e => {
-//   if (e.target !== e.currentTarget) return
-//   lightbox.classList.remove('active')
-// })
-
-// const instance = basicLightbox.create(ul)
 console.log(galleryItems);
-
-// instance.show()
