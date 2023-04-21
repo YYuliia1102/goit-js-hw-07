@@ -29,9 +29,13 @@ const images = document.querySelectorAll('img')
 images.forEach(image => {
     image.addEventListener('click', (e) => {
         e.preventDefault(); //відміняє стандартну дію браузера
-        let lightbox = new SimpleLightbox('.gallery a');
+        let lightbox = new SimpleLightbox('.gallery a',{
+            captionDelay: 250,
+            captionClass: "gallery",
+            captionsData: 'alt',
+        });
         lightbox.on('show.simpleLightbox')
-
+        
     })
 })
 
