@@ -31,7 +31,6 @@ images.forEach(image => {
         e.preventDefault(); //відміняє стандартну дію браузера
         let lightbox = new SimpleLightbox('.gallery a',{
             captionDelay: 250,
-            captionClass: "gallery",
             captionsData: 'alt',
         });
         lightbox.on('show.simpleLightbox')
