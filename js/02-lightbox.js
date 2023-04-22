@@ -3,45 +3,23 @@ import { galleryItems } from './gallery-items.js';
 const liArray = [];
 
 // Звернаємось до классу gallery
-const ul = document.querySelector('.gallery');
-galleryItems.forEach(item => {
-    const li = document.createElement('li');
+const galleryMarkup = galleryItems.map(item => `
+<div class="gallery__item">
+<a class="gallery__link" href="${item.original}">
+<img class="gallery__image" src="${item.preview}" data-source="${item.original}" alt="${item.description}"/>
+</a>
+</div>
+`).join('');
 
-    const link = document.createElement('a')
-    link.className = "gallery__link";
-    link.setAttribute('href', item.original)
-
-    const img = document.createElement('img')
-    img.className = "gallery__image";
-    img.setAttribute('src', item.preview)
-    img.setAttribute('alt', item.description)
-
-    link.appendChild(img)
-
-    li.appendChild(link)
-
-    liArray.push(li);
-})
-
-ul.append(...liArray);
+const gallery = document.querySelector('.gallery');
+gallery.insertAdjacentHTML('beforeend', galleryMarkup);
 
 const images = document.querySelectorAll('img')
-images.forEach(image => {
-    image.addEventListener('click', (e) => {
-        e.preventDefault(); //відміняє стандартну дію браузера
-        let lightbox = new SimpleLightbox('.gallery a',{
-            captionDelay: 250,
-            captionsData: 'alt',
-        });
-        lightbox.on('show.simpleLightbox')
-        
-    })
-})
+
+let lightbox = new SimpleLightbox('.gallery a',{
+    captionDelay: 250,
+    captionsData: 'alt',
+});
+lightbox.on('show.simpleLightbox')
 
 console.log(galleryItems);
-
-
-// let gallery = new SimpleLightbox('.gallery a');
-// gallery.on('show.simplelightbox', function () {
-// 	// do something…
-// });
